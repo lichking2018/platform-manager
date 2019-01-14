@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wt.common.security.dao.SysRoleMapper">
+  <resultMap id="BaseResultMap" type="com.wt.common.security.model.SysRole">
+    <result column="roleId" jdbcType="VARCHAR" property="roleid" />
+    <result column="roleName" jdbcType="VARCHAR" property="rolename" />
+  </resultMap>
+  <insert id="insert" parameterType="com.wt.common.security.model.SysRole">
+    insert into SysRoleT (roleId, roleName)
+    values (#{roleid,jdbcType=VARCHAR}, #{rolename,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wt.common.security.model.SysRole">
+    insert into SysRoleT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleid != null">
+        roleId,
+      </if>
+      <if test="rolename != null">
+        roleName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleid != null">
+        #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="rolename != null">
+        #{rolename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

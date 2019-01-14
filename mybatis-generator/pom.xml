@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!--<parent>-->
+    <!--<groupId>com.wt.framework</groupId>-->
+    <!--<artifactId>core</artifactId>-->
+    <!--<version>1.0-SNAPSHOT</version>-->
+    <!--<relativePath>../core/pom.xml</relativePath>-->
+  <!--</parent>-->
+
+  <parent>
+    <groupId>com.wt.framework</groupId>
+    <artifactId>root</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <groupId>com.wt.framework</groupId>
+  <artifactId>mybatis-generator</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <!--<packaging>jar</packaging>-->
+
+  <name>mybatis-generator</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>org.mybatis.generator</groupId>
+      <artifactId>mybatis-generator-core</artifactId>
+      <version>1.3.6</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <finalName>mybatis-generator</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.mybatis.generator</groupId>
+        <artifactId>mybatis-generator-maven-plugin</artifactId>
+        <version>1.3.6</version>
+        <configuration>
+          <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
+          <verbose>true</verbose>
+          <overwrite>true</overwrite>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

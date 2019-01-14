@@ -1,0 +1,6 @@
+#忽略编译目录target
+*/**/target/
+*/**/.idea/
+*/**/*.iml
+*/**/.classpth
+*.iml

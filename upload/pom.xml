@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.wt.common</groupId>
+    <artifactId>moduleVersion</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <relativePath>../moduleVersion/pom.xml</relativePath>
+  </parent>
+
+  <description>
+    文件上传公共模块
+    1、接收文件上传请求
+    2、将文件信息录保存到数据库
+    3、将文件信息保存到服务器目录
+  </description>
+
+
+  <groupId>com.wt.common</groupId>
+  <artifactId>upload</artifactId>
+  <version>${version.upload}</version>
+  <packaging>jar</packaging>
+  <name>upload</name>
+
+</project>

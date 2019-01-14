@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wt.common.msgCenter.dao.MessageRecordMapper">
+  <resultMap id="MessageRecordMap" type="com.wt.common.msgCenter.model.MessageRecord">
+    <result column="messageId" jdbcType="VARCHAR" property="messageId" />
+    <result column="messageContent" jdbcType="VARCHAR" property="messageContent" />
+    <result column="messageType" jdbcType="VARCHAR" property="messageType" />
+    <result column="successFlag" jdbcType="TINYINT" property="successFlag" />
+    <result column="sendDateTime" jdbcType="TIMESTAMP" property="sendDateTime" />
+    <result column="target" jdbcType="VARCHAR" property="target" />
+    <result column="creator" jdbcType="INTEGER" property="creator" />
+    <result column="createDateTime" jdbcType="TIMESTAMP" property="createDateTime" />
+    <result column="changedBy" jdbcType="INTEGER" property="changedBy" />
+    <result column="lastUpdate" jdbcType="TIMESTAMP" property="lastUpdate" />
+    <result column="deleteFlag" jdbcType="TINYINT" property="deleteFlag" />
+  </resultMap>
+  <select id="queryAndPaging" parameterType="com.wt.common.core.view.QueryHelper" resultMap="MessageRecordMap">
+    SELECT *
+    FROM MessageRecordT t
+    WHERE t.deleteFlag=FALSE
+    ORDER BY t.lastUpdate DESC
+    LIMIT #{queryHelper.start}, #{queryHelper.size}
+  </select>
+
+  <select id="queryAndPagingTotal" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM MessageRecordT
+    WHERE deleteFlag = FALSE
+  </select>
+</mapper>

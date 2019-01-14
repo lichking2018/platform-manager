@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wt.common.security.dao.SysMenuMapper">
+  <resultMap id="BaseResultMap" type="com.wt.common.security.model.SysMenu">
+    <result column="menuId" jdbcType="VARCHAR" property="menuId" />
+    <result column="menuName" jdbcType="VARCHAR" property="menuName" />
+    <result column="menuUrl" jdbcType="VARCHAR" property="menuUrl" />
+    <result column="icon" jdbcType="VARCHAR" property="icon"/>
+  </resultMap>
+  <!--【知识点】，extends的使用，使本Map具备父Map的映射关系-->
+  <resultMap id="userTreeMap" type="com.wt.common.security.model.SysMenu" extends="BaseResultMap">
+    <!--【知识点】，MyBatis中的一对一映射
+      1、使用association的 property指定 右端的属性名称，使用resultMap指定右端映射关系，使用columnPrefix指定前缀
+      2、子查询的列名，一定要加上columnPrefix指定的前缀
+    -->
+    <association property="parentSysMenu" resultMap="userTreeMap" columnPrefix="p_"/>
+    <!--【知识点】，MyBatis的一对多映射，道理同一对一-->
+    <collection property="children" resultMap="userTreeMap" columnPrefix="c_"/>
+  </resultMap>
+
+
+  <select id="findAllAndParentMenu" resultMap="userTreeMap">
+    SELECT
+      t.*,
+      p.menuId   p_menuId,
+      p.menuName p_menuName,
+      p.icon     p_icon,
+      p.pId      p_pId,
+      p.menuUrl  p_menuUrl,
+      c.menuId c_menuId,
+      c.menuName c_menuName,
+      c.icon c_icon,
+      c.pId c_pId,
+      c.menuUrl c_menuUrl
+    FROM SysMenuT t
+      LEFT JOIN SysMenuT p ON t.pId = p.menuId AND p.deleteFlag = FALSE
+      LEFT JOIN SysMenuT c ON t.menuId = c.pId AND c.deleteFlag = FALSE
+    WHERE t.deleteFlag = FALSE
+  </select>
+
+  <select id="findMenuAndParent" resultMap="userTreeMap" parameterType="java.lang.String">
+    SELECT	t.*,p.menuId p_menuId,p.menuName p_menuName,p.icon p_icon,p.menuUrl p_menuUrl
+    FROM SysMenuT t
+      LEFT JOIN SysMenuT p ON t.pId = p.menuId
+    WHERE t.deleteFlag=FALSE
+    AND t.menuId = #{menuId}
+  </select>
+
+
+  <select id="queryAndPaging" resultMap="userTreeMap">
+    SELECT t.*,p.menuId p_menuId,p.menuName p_menuName,p.icon p_icon,p.menuUrl p_menuUrl
+    FROM SysMenuT t
+      LEFT JOIN SysMenuT p ON t.pId = p.menuId
+    WHERE t.deleteFlag=FALSE
+    ORDER BY t.lastUpdate DESC
+    LIMIT #{queryHelper.start},#{queryHelper.size}
+  </select>
+
+  <select id="queryAndPagingTotal" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM SysMenuT
+    WHERE deleteFlag = FALSE
+  </select>
+
+</mapper>

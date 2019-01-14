@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--【知识点】，Quartz与Spring整合，Spring 为Quartz提供了MethodInvokingJobDetailFactoryBean、SimpleTriggerBean、SchedulerFactoryBean
+    通过此处配置，将Quartz的Schedule交给Spring管理-->
+    <!--这个bean在Spring启动的时候就会创建一个SchedulerFactoryBean实例，它会根据你的配置的属性，创建一个schedule实例。-->
+    <bean id="scheduler" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean" destroy-method="destroy">
+        <!--需要overwrite已经存在的job，如果需要动态的修改已经存在的job，就需要设置为true，否则会以数据库中已经存在的为准-->
+        <property name="overwriteExistingJobs" value="true"/>
+        <property name="startupDelay" value="30"/>
+        <!--设置手工启动-->
+        <property name="autoStartup" value="false"/>
+        <!--把spring上下 文以key/value的方式存放在了quartz的上下文中了-->
+        <property name="applicationContextSchedulerContextKey" value="applicationContext"/>
+        <!--【知识点】，自定义JobFactory，使Job对象的实例化与Spring 的bean的实例化结合起来，从而可以在job中通过注入，引用其他bean-->
+        <property name="jobFactory">
+            <bean class="com.wt.common.schedule.factory.JobFactory"/>
+        </property>
+        <!--【知识点】，指定配置文件-->
+        <property name="configLocation" value="classpath:application.properties"/>
+    </bean>
+</beans>

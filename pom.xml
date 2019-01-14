@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.wt.platform</groupId>
+    <artifactId>manager</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>com.wt.activiti</module>
+        <module>commonModule</module>
+        <module>core</module>
+        <module>data</module>
+        <module>email</module>
+        <module>j2ee</module>
+        <module>moduleVersion</module>
+        <module>msgCenter</module>
+        <module>mybatis-generator</module>
+        <module>root</module>
+        <module>schedule</module>
+        <module>security</module>
+        <module>upload</module>
+        <module>version</module>
+    </modules>
+
+</project>
